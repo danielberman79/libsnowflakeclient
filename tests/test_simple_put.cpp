@@ -432,8 +432,12 @@ void test_simple_put_use_dev_urandom(void **unused)
   std::unique_ptr<IStatementPutGet> stmtPutGet = std::unique_ptr
 	  <StatementPutGet>(new Snowflake::Client::StatementPutGet(sfstmt));
 
-  Snowflake::Client::FileTransferAgent agent(stmtPutGet.get());  
+  Snowflake::Client::FileTransferAgent agent(stmtPutGet.get());
+
+  agent.setRandomDeviceAsUrand(false);
+  assert_string_equal(agent.getRandomDevice(), "DEV_RANDOM");
   agent.setRandomDeviceAsUrand(true);
+  assert_string_equal(agent.getRandomDevice(), "DEV_URANDOM");
 
   ITransferResult * results = agent.execute(&putCommand);
   assert_int_equal(1, results->getResultSize());

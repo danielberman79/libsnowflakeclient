@@ -27,7 +27,8 @@ Snowflake::Client::FileMetadataInitializer::FileMetadataInitializer(
   std::vector<FileMetadata> &largeFileMetadata) :
   m_smallFileMetadata(smallFileMetadata),
   m_largeFileMetadata(largeFileMetadata),
-  m_autoCompress(true)
+  m_autoCompress(true),
+  m_randDevice(Crypto::CryptoRandomDevice::DEV_RANDOM)
 {
 }
 

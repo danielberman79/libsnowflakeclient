@@ -69,6 +69,12 @@ public:
     m_useDevUrand = useUrand;
   }
 
+  virtual std::string getRandomDevice(void)
+  {
+    std::string dev = ((short)m_FileMetadataInitializer.getRandomDev() == 0)? "DEV_RANDOM" : "DEV_URANDOM" ;
+    return dev ;
+  }
+
 private:
   /**
    * Populate file metadata, (Get source file name)

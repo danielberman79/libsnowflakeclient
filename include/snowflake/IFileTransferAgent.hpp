@@ -62,6 +62,8 @@ public:
    */
   virtual void setRandomDeviceAsUrand(bool useUrand){};
 
+  virtual std::string getRandomDevice(void){};
+
 };
 
 }

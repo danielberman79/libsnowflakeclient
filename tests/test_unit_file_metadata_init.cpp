@@ -67,6 +67,19 @@ std::vector<std::string> getListOfTestFileMatchDir()
   return listOfTestDirs;
 }
 
+void test_random_device(void **)
+{
+  std::vector<FileMetadata> smallFileMetadata;
+  std::vector<FileMetadata> largeFileMetadata;
+
+  FileMetadataInitializer initializer(smallFileMetadata, largeFileMetadata);
+  initializer.setRandomDev(false);
+  assert_true(initializer.getRandomDev() == Crypto::CryptoRandomDevice::DEV_RANDOM);
+  initializer.setRandomDev(true);
+  assert_true(initializer.getRandomDev() == Crypto::CryptoRandomDevice::DEV_URANDOM);
+  return;
+}
+
 void test_file_pattern_match_core(std::vector<std::string> *expectedFiles,
                                   const char *filePattern)
 {
@@ -158,6 +171,9 @@ int main(void) {
     cmocka_unit_test_setup_teardown(test_file_pattern_match,
                                     file_pattern_match_setup,
                                     file_pattern_match_teardown),
+    cmocka_unit_test_setup_teardown(test_random_device,
+                                    nullptr,
+                                    nullptr),
   };
   int ret = cmocka_run_group_tests(tests, gr_setup, gr_teardown);
   return ret;
